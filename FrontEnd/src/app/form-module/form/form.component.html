@@ -1,0 +1,62 @@
+
+<!-- SECTION FOR THE FORM  -->
+<section class="form">
+
+  <!-- FIRST INPUT(Name) -->
+
+  <form [formGroup]="form">
+  <h1 class="title">Formulario</h1>
+  <mat-form-field class="example-full-width">
+    <mat-label>Nombre</mat-label>
+    <input matInput formControlName="nombre">
+    <mat-error *ngIf="form.controls['nombre'].hasError('pattern')">
+      Solo se permiten letras.
+    </mat-error>
+  </mat-form-field>
+
+  <!-- SECOND INPUT(Surname) -->
+
+  <mat-form-field class="example-full-width">
+    <mat-label>Apellido</mat-label>
+    <input matInput formControlName="apellido">
+    <mat-error *ngIf="form.controls['apellido'].hasError('pattern')">
+      Solo se permiten letras.
+    </mat-error>
+  </mat-form-field>
+
+  <!-- THIRD INPUT(Office Location) -->
+
+  <mat-form-field>
+    <mat-label>Office Location [OFFICE]</mat-label>
+    <mat-select formControlName="ciudad" (selectionChange)="triggerDepartamento()">
+      <mat-option *ngFor="let city of cities" [value]="city">
+        {{city.nombre}}
+      </mat-option>
+
+    </mat-select>
+  </mat-form-field>
+
+  <!-- FOURTH INPUT(Department) -->
+
+  <mat-form-field required >
+    <mat-label>Department [DEP]</mat-label>
+    <mat-select formControlName="departamento">
+
+      <mat-option [value]="error">
+        Error
+      </mat-option>
+
+      <mat-option *ngFor="let department of departments" [value]="department" >
+        {{department.nombre}}
+      </mat-option>
+
+    </mat-select>
+  </mat-form-field>
+
+  <!-- SEND BUTTON -->
+
+  <button [disabled]="form.invalid" mat-raised-button color="accent" (click)="submitForm()">Enviar</button>
+
+
+</form>
+</section>
